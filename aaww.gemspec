@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = Aaww::VERSION
   spec.authors       = ['La Inventoría']
   spec.email         = ['info@lainventoria.com.ar']
-  spec.summary       = %q{A simple Authentise Wrapper}
+  spec.summary       = %q{A simple Authentise API Wrapper}
   spec.description   = %q{A simple Authentise API Wrapper using HTTParty}
   spec.homepage      = 'http://github.com/lainventoria/aaww'
   spec.license       = 'GPLv3'
