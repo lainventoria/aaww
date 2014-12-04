@@ -22,4 +22,33 @@ describe Aaww::Transaction do
       subject.token.must_equal @response
     end
   end
+
+  describe '#upload' do
+    before do
+      VCR.use_cassette 'upload' do
+        subject.token = 'fake_test_token'
+        @response = subject.upload sample_stl, 'email@example.com', 1, 69
+      end
+    end
+
+    it 'returns a token link' do
+      @response.must_equal 'http://tokens.sendshapes.com/?token=fake_test_token'
+    end
+
+    it 'saves the file' do
+      subject.file.path.must_equal sample_stl.path
+    end
+
+    it 'saves the email' do
+      subject.email.must_equal 'email@example.com'
+    end
+
+    it 'saves the value' do
+      subject.value.must_equal 1
+    end
+
+    it 'saves the id if sent' do
+      subject.job_id.must_equal 69
+    end
+  end
 end
