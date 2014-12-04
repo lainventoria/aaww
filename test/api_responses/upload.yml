@@ -1,0 +1,40 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://widget.sendshapes.com:3443/api3/api_upload_partner_stl
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - multipart/form-data; boundary=-----------RubyMultipartPost
+      Content-Length:
+      - '7822429'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Thu, 04 Dec 2014 20:30:15 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '212'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"data":{"ssl_token_link":"https:\/\/tokens.sendshapes.com\/?token=fake_test_token","token_link":"http:\/\/tokens.sendshapes.com\/?token=fake_test_token"},"status":{"code":"ok"}}'
+    http_version: 
+  recorded_at: Thu, 04 Dec 2014 20:27:08 GMT
+recorded_with: VCR 2.9.3
