@@ -1,6 +1,6 @@
 # Aaww
 
-TODO: Write a gem description
+A simple Authentise API Wrapper using HTTMultiParty for uploads
 
 ## Installation
 
@@ -20,7 +20,17 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Start a new transaction:
+
+    transaction = Aaww::Transaction.new key: 'your_api_key'
+
+Generate a token for this transaction:
+
+    transaction.create_token
+
+Upload a file and get a link to send the user to:
+
+    link = transaction.upload File.new('some.stl'), 'some@email.com', 3.99
 
 ## Contributing
 
