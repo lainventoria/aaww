@@ -1,11 +1,10 @@
 require 'minitest_helper'
 
 describe Aaww::Transaction do
-  before { Aaww.base_uri 'https://private-anon-ec6132c37-authentise.apiary-mock.com' }
-  subject { Aaww::Transaction.new(key: 'abc') }
+  subject { Aaww::Transaction.new(key: 'fake_test_key') }
 
   it 'can access the key' do
-    subject.key.must_equal 'abc'
+    subject.key.must_equal 'fake_test_key'
   end
 
   describe '#create_token' do
@@ -16,7 +15,7 @@ describe Aaww::Transaction do
     end
 
     it 'creates a token and returns it' do
-      @response.must_equal '56497a3e9ffcbbe9b174b38a31sample'
+      @response.must_equal 'fake_test_token'
     end
 
     it 'saves the token for future use' do

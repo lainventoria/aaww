@@ -7,13 +7,18 @@ describe Aaww do
     subject::VERSION.wont_be_nil
   end
 
-  it 'has a base uri' do
-    subject.base_uri.wont_be_nil
-  end
+  describe '#base_uri' do
+    before { @original = subject.base_uri }
+    after { subject.base_uri @original }
 
-  it "can change it's base uri" do
-    subject.base_uri 'https://somewhere.safe'
+    it 'has a base uri' do
+      subject.base_uri.wont_be_nil
+    end
 
-    subject.base_uri.must_equal 'https://somewhere.safe'
+    it "can change it's base uri" do
+      subject.base_uri 'https://somewhere.safe'
+
+      subject.base_uri.must_equal 'https://somewhere.safe'
+    end
   end
 end

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://private-anon-ec6132c37-authentise.apiary-mock.com/api3/api_create_partner_token?api_key=abc
+    uri: https://widget.sendshapes.com:3443/api3/api_create_partner_token?api_key=fake_test_key
     body:
       encoding: US-ASCII
       string: ''
@@ -19,30 +19,18 @@ http_interactions:
       message: OK
     headers:
       Server:
-      - Cowboy
-      Connection:
-      - keep-alive
-      X-Apiary-Ratelimit-Limit:
-      - '120'
-      X-Apiary-Ratelimit-Remaining:
-      - '119'
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Thu, 04 Dec 2014 17:08:04 GMT
       Content-Type:
       - application/json
-      X-Apiary-Transaction-Id:
-      - 54801e25cf6bf70200cc6569
-      Date:
-      - Thu, 04 Dec 2014 08:41:09 GMT
-      Transfer-Encoding:
-      - chunked
-      Via:
-      - 1.1 vegur
+      Content-Length:
+      - '76'
+      Connection:
+      - keep-alive
     body:
       encoding: UTF-8
-      string: |-
-        {
-        "status":{"code":"ok"},
-        "data":{"token":"56497a3e9ffcbbe9b174b38a31sample"}
-        }
+      string: '{"data":{"token":"fake_test_token"},"status":{"code":"ok"}}'
     http_version: 
-  recorded_at: Thu, 04 Dec 2014 08:38:02 GMT
+  recorded_at: Thu, 04 Dec 2014 17:04:57 GMT
 recorded_with: VCR 2.9.3

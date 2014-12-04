@@ -2,7 +2,7 @@ module Aaww
   class Transaction
     include ActiveModel::Model
 
-    attr_accessor :key, :token, :file, :email, :value
+    attr_accessor :key, :token
 
     # Creates a single unique token for this transaction
     # Returns Token
