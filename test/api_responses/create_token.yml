@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://private-anon-ec6132c37-authentise.apiary-mock.com/api3/api_create_partner_token?api_key=abc
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Connection:
+      - keep-alive
+      X-Apiary-Ratelimit-Limit:
+      - '120'
+      X-Apiary-Ratelimit-Remaining:
+      - '119'
+      Content-Type:
+      - application/json
+      X-Apiary-Transaction-Id:
+      - 54801e25cf6bf70200cc6569
+      Date:
+      - Thu, 04 Dec 2014 08:41:09 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+        "status":{"code":"ok"},
+        "data":{"token":"56497a3e9ffcbbe9b174b38a31sample"}
+        }
+    http_version: 
+  recorded_at: Thu, 04 Dec 2014 08:38:02 GMT
+recorded_with: VCR 2.9.3
