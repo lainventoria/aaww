@@ -10,6 +10,7 @@ module Aaww
     def create_token
       response = Aaww.get '/api3/api_create_partner_token', query: { api_key: key }
       self.token = response['data']['token']
+      response
     end
 
     # Uploads a 3D object associated with a specific token and purchase order information
@@ -27,6 +28,7 @@ module Aaww
     def upload!
       response = Aaww.post '/api3/api_upload_partner_stl', query: upload_query
       self.link = response['data']['token_link']
+      response
     end
 
     def upload_query
