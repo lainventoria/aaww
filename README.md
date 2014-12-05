@@ -30,7 +30,17 @@ Generate a token for this transaction:
 
 Upload a file and get a link to send the user to:
 
-    link = transaction.upload File.new('some.stl'), 'some@email.com', 3.99
+    transaction.upload File.new('some.stl'), 'some@email.com', 3.99
+
+or just `upload!` if you instantiated the Transaction with everything needed:
+
+    transaction = Aaww::Transaction.new key: 'your_api_key', file: File.new('some.stl'), email: 'some@email.com', value: 3.99
+    transaction.upload!
+
+Then, you can access the token links created by Authentise with:
+
+    transaction.link
+    transaction.ssl_link
 
 ## Contributing
 
