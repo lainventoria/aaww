@@ -63,28 +63,49 @@ describe Aaww::Transaction do
   end
 
   describe '#upload!' do
-    subject do
-      Aaww::Transaction.new key: 'fake_test_key', token: 'fake_test_token',
-        file: sample_stl, email: 'email@example.com', value: 1, job_id: 69
-    end
+    describe 'with token' do
+      subject do
+        Aaww::Transaction.new key: 'fake_test_key', token: 'fake_test_token',
+          file: sample_stl, email: 'email@example.com', value: 1, job_id: 69
+      end
 
-    before do
-      VCR.use_cassette 'upload' do
-        @response = subject.upload!
+      before do
+        VCR.use_cassette 'upload' do
+          @response = subject.upload!
+        end
+      end
+
+      it 'returns the response' do
+        @response.must_be_instance_of Hash
+        @response['status']['code'].must_equal 'ok'
+      end
+
+      it 'saves the link' do
+        subject.link.must_equal @response['data']['token_link']
+      end
+
+      it 'saves the ssl link' do
+        subject.ssl_link.must_equal @response['data']['ssl_token_link']
       end
     end
 
-    it 'returns the response' do
-      @response.must_be_instance_of Hash
-      @response['status']['code'].must_equal 'ok'
-    end
+    describe 'without token' do
+      subject do
+        Aaww::Transaction.new key: 'fake_test_key',
+          file: sample_stl, email: 'email@example.com', value: 1, job_id: 69
+      end
 
-    it 'saves the link' do
-      subject.link.must_equal @response['data']['token_link']
-    end
+      it 'generates a token' do
+        subject.token.must_be_nil
 
-    it 'saves the ssl link' do
-      subject.ssl_link.must_equal @response['data']['ssl_token_link']
+        VCR.use_cassette 'create_token' do
+          VCR.use_cassette 'upload' do
+            subject.upload!
+          end
+        end
+
+        subject.token.must_equal 'fake_test_token'
+      end
     end
   end
 end

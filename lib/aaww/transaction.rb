@@ -26,6 +26,8 @@ module Aaww
     end
 
     def upload!
+      create_token if token.nil?
+
       response = Aaww.post '/api3/api_upload_partner_stl', query: upload_query
       self.link = response['data']['token_link']
       self.ssl_link = response['data']['ssl_token_link']
