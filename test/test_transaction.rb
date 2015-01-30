@@ -122,7 +122,7 @@ describe Aaww::Transaction do
     end
   end
 
-  describe 'print_status' do
+  describe 'check_print_status!' do
     subject do
       Aaww::Transaction.new key: 'fake_test_key',
         file: sample_stl, email: 'email@example.com', value: 1, job_id: 69
@@ -132,7 +132,7 @@ describe Aaww::Transaction do
       before do
         VCR.use_cassette 'print_status_without_print' do
           subject.create_token
-          @response = subject.print_status
+          @response = subject.check_print_status!
         end
       end
 
@@ -145,6 +145,11 @@ describe Aaww::Transaction do
         subject.must_be :error?
       end
 
+      it 'doesnt show any progress' do
+        subject.progress.must_be_instance_of Aaww::Progress
+        subject.progress.wont_be :any?
+      end
+
       it 'gives an error message' do
         subject.status.description.must_equal @response['status']['description']
         subject.status.extended_description.must_equal @response['status']['extended_description']
@@ -155,13 +160,18 @@ describe Aaww::Transaction do
       before do
         VCR.use_cassette 'print_status_with_print_not_started' do
           subject.upload!
-          @response = subject.print_status
+          @response = subject.check_print_status!
         end
       end
 
       it 'saves the status' do
         subject.status.must_be_instance_of Aaww::Status
         subject.must_be :error?
+      end
+
+      it 'doesnt show any progress' do
+        subject.progress.must_be_instance_of Aaww::Progress
+        subject.progress.wont_be :any?
       end
 
       it 'gives an error message' do

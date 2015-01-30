@@ -3,7 +3,8 @@ module Aaww
     include ActiveModel::Model
     extend Forwardable
 
-    attr_accessor :key, :token, :file, :email, :value, :job_id, :link, :ssl_link, :status
+    attr_accessor :key, :token, :file, :email, :value, :job_id, :link,
+                  :ssl_link, :status, :progress
 
     def_delegators :status, :ok?, :error?
 
@@ -52,10 +53,11 @@ module Aaww
     # Returns Print Status
     # GET /api3/api_get_partner_print_status?api_key={key}&token={token}"
     # TODO enforce 15 seconds API restriction
-    def print_status
+    def check_print_status!
       if token
         response = Aaww.get '/api3/api_get_partner_print_status', query: { api_key: key, token: token }
         self.status = Status.new response['status']
+        self.progress = Progress.new response['data']
         response
       end
     end
