@@ -4,6 +4,7 @@ require 'aaww'
 require 'minitest/autorun'
 require 'webmock/minitest'
 require 'vcr'
+require 'pry'
 
 VCR.configure do |c|
   c.cassette_library_dir = 'test/api_responses'
