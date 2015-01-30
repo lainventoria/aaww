@@ -2,6 +2,7 @@ require 'httmultiparty'
 require 'active_model'
 require 'aaww/version'
 require 'aaww/transaction'
+require 'aaww/status'
 
 module Aaww
   include HTTMultiParty
