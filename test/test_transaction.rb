@@ -16,7 +16,11 @@ describe Aaww::Transaction do
 
     it 'returns the response' do
       @response.must_be_instance_of Hash
-      @response['status']['code'].must_equal 'ok'
+    end
+
+    it 'saves the status' do
+      subject.status.must_be_instance_of Aaww::Status
+      subject.must_be :ok?
     end
 
     it 'saves the token for future use' do
@@ -34,7 +38,11 @@ describe Aaww::Transaction do
 
     it 'returns the response' do
       @response.must_be_instance_of Hash
-      @response['status']['code'].must_equal 'ok'
+    end
+
+    it 'saves the status' do
+      subject.status.must_be_instance_of Aaww::Status
+      subject.must_be :ok?
     end
 
     it 'saves the file' do
@@ -80,6 +88,11 @@ describe Aaww::Transaction do
         @response['status']['code'].must_equal 'ok'
       end
 
+      it 'saves the status' do
+        subject.status.must_be_instance_of Aaww::Status
+        subject.must_be :ok?
+      end
+
       it 'saves the link' do
         subject.link.must_equal @response['data']['token_link']
       end
@@ -105,6 +118,65 @@ describe Aaww::Transaction do
         end
 
         subject.token.must_equal 'fake_test_token'
+      end
+    end
+  end
+
+  describe 'check_print_status!' do
+    subject do
+      Aaww::Transaction.new key: 'fake_test_key',
+        file: sample_stl, email: 'email@example.com', value: 1, job_id: 69
+    end
+
+    describe 'without print job' do
+      before do
+        VCR.use_cassette 'print_status_without_print' do
+          subject.create_token
+          @response = subject.check_print_status!
+        end
+      end
+
+      it 'fails' do
+        @response.must_be_instance_of Hash
+      end
+
+      it 'saves the status' do
+        subject.status.must_be_instance_of Aaww::Status
+        subject.must_be :error?
+      end
+
+      it 'doesnt show any progress' do
+        subject.progress.must_be_instance_of Aaww::Progress
+        subject.progress.wont_be :any?
+      end
+
+      it 'gives an error message' do
+        subject.status.description.must_equal @response['status']['description']
+        subject.status.extended_description.must_equal @response['status']['extended_description']
+      end
+    end
+
+    describe 'with print job not started' do
+      before do
+        VCR.use_cassette 'print_status_with_print_not_started' do
+          subject.upload!
+          @response = subject.check_print_status!
+        end
+      end
+
+      it 'saves the status' do
+        subject.status.must_be_instance_of Aaww::Status
+        subject.must_be :error?
+      end
+
+      it 'doesnt show any progress' do
+        subject.progress.must_be_instance_of Aaww::Progress
+        subject.progress.wont_be :any?
+      end
+
+      it 'gives an error message' do
+        subject.status.description.must_equal @response['status']['description']
+        subject.status.extended_description.must_equal @response['status']['extended_description']
       end
     end
   end

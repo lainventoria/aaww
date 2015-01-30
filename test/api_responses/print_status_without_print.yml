@@ -1,0 +1,74 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://widget.sendshapes.com:3443/api3/api_create_partner_token?api_key=fake_test_key
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Fri, 30 Jan 2015 21:34:46 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: UTF-8
+      string: '{"status":{"code":"ok"},"data":{"token":"fake_test_token"}}'
+    http_version: 
+  recorded_at: Fri, 30 Jan 2015 21:29:52 GMT
+- request:
+    method: get
+    uri: https://widget.sendshapes.com:3443/api3/api_get_partner_print_status?api_key=fake_test_key&token=fake_test_token
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Fri, 30 Jan 2015 21:34:47 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: UTF-8
+      string: '{"status":{"description":"System error","extended_description":"token
+        does not have print order associated\n","code":"error"}}'
+    http_version: 
+  recorded_at: Fri, 30 Jan 2015 21:29:53 GMT
+recorded_with: VCR 2.9.3
